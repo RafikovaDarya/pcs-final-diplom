@@ -15,7 +15,7 @@ public class Client {
         ) {
             //подключение к серверу
 
-            writer.println(jsonWord());
+            writer.println(justWord());
             String response;
             while ((response = reader.readLine()) != null) {
                 System.out.println(response);
@@ -26,16 +26,16 @@ public class Client {
         }
     }
 
-    public static String jsonWord() throws ParseException {
+    public static String justWord() throws ParseException {
 
         Scanner scanner = new Scanner(System.in);
         String word = scanner.nextLine();
 
-        String jsonText = "{\"word\": \"" + word + "\"}";
+        //String jsonText = "{\"word\": \"" + word + "\"}";
         //System.out.println(jsonText);
 
 
-        return jsonText;
+        return word;
     }
 
 

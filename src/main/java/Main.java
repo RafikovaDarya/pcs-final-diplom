@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,8 +26,10 @@ public class Main {
                 ) {
                     String request = in.readLine();
 
-                    Request r = new Gson().fromJson(request, Request.class);
-                   List<PageEntry> result = engine.search(r.getWord());
+                    //Request r = new Gson().fromJson(request, Request.class);
+                    //List<PageEntry> result = engine.search(r.getWord());
+
+                    List<PageEntry> result = engine.search(request);
                     var gson = new GsonBuilder().setPrettyPrinting().create();
                     var response = gson.toJson(result);
                     out.println(response);
