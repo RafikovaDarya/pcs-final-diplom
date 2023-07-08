@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class BooleanSearchEngine implements SearchEngine {
-    private final Map<String, List<PageEntry>> wordsPdfs = new HashMap<>();
+    public final Map<String, List<PageEntry>> wordsPdfs = new HashMap<>();
 
     public BooleanSearchEngine(File pdfsDir) throws IOException {
 
-        File[] PdfArr = new File("pdfs").listFiles();
+        File[] PdfArr = pdfsDir.listFiles();
         for (File pdf : PdfArr) {
 
             var doc = new PdfDocument(new PdfReader(pdf));
@@ -48,7 +48,7 @@ public class BooleanSearchEngine implements SearchEngine {
         // тут реализуйте поиск по слову
         List<PageEntry> result = new ArrayList<>();
 
-        if (wordsPdfs.get(word.toLowerCase()) != null) {
+        if (wordsPdfs.containsKey(word.toLowerCase())) {
             for (PageEntry pageEntry : wordsPdfs.get(word.toLowerCase())) {
                 result.add(pageEntry);
             }

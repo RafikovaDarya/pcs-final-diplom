@@ -1,4 +1,3 @@
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
@@ -9,6 +8,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
         BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"));
+
+        /*Integer sum = engine.wordsPdfs.values().stream().mapToInt(List::size).sum();
+        System.out.println(sum);*/
+
         //System.out.println(engine.search("управление"));
 
         // здесь создайте сервер, который отвечал бы на нужные запросы
