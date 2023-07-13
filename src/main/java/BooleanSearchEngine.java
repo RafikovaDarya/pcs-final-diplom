@@ -9,6 +9,7 @@ import java.util.*;
 public class BooleanSearchEngine implements SearchEngine {
     public final Map<String, List<PageEntry>> wordsPdfs = new HashMap<>();
 
+
     public BooleanSearchEngine(File pdfsDir) throws IOException {
 
         File[] PdfArr = pdfsDir.listFiles();
@@ -31,14 +32,32 @@ public class BooleanSearchEngine implements SearchEngine {
                 }
 
                 for (String word : freqs.keySet()) {
+
                     PageEntry pageEntry = new PageEntry(pdf.getName(), currentPage, freqs.get(word));
+                    List<PageEntry> sortedList;
+
                     if (wordsPdfs.containsKey(word)) {
-                        wordsPdfs.get(word).add(pageEntry);
+                        sortedList = wordsPdfs.get(word);
+
+                        if (!sortedList.contains(pageEntry)) {
+
+
+                            wordsPdfs.remove(word, sortedList);
+
+                            sortedList.add(pageEntry);
+                            sortedList.sort(PageEntry::compareTo);
+
+
+                            wordsPdfs.put(word, sortedList);
+                        }
                     } else {
-                        wordsPdfs.put(word, new ArrayList<>());
-                        wordsPdfs.get(word).add(pageEntry);
+                        sortedList = new ArrayList<>();
+                        sortedList.add(pageEntry);
+                        wordsPdfs.put(word, sortedList);
                     }
                 }
+
+
             }
         }
     }
@@ -46,14 +65,9 @@ public class BooleanSearchEngine implements SearchEngine {
     @Override
     public List<PageEntry> search(String word) {
         // тут реализуйте поиск по слову
-        List<PageEntry> result = new ArrayList<>();
-
-        if (wordsPdfs.containsKey(word.toLowerCase())) {
-            for (PageEntry pageEntry : wordsPdfs.get(word.toLowerCase())) {
-                result.add(pageEntry);
-            }
+        if (wordsPdfs.containsKey(word)) {
+            return wordsPdfs.get(word);
         }
-        Collections.sort(result);
-        return result;
+        return Collections.emptyList();
     }
 }

@@ -9,8 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"));
 
-        /*Integer sum = engine.wordsPdfs.values().stream().mapToInt(List::size).sum();
-        System.out.println(sum);*/
+
 
         //System.out.println(engine.search("управление"));
 
